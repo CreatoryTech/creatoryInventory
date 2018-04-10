@@ -15,9 +15,16 @@ class CreateClientsPaymentsTable extends Migration
     {
         Schema::create('clients_payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->clients_id('id');
+            $table->unsignedInteger('clients_id');
+            $table->unsignedInteger('total_paid');
+            $table->unsignedInteger('total_due');
+
+
 
             $table->timestamps();
+             $table->foreign('clients_id')
+            ->references('id')
+            ->on('clients');
         });
     }
 
