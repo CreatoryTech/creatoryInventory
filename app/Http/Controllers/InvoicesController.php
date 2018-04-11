@@ -11,6 +11,7 @@ use App\PettyManagement;
 use App\AvailableStock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Session;
 
 class InvoicesController extends Controller
 {
@@ -32,6 +33,8 @@ class InvoicesController extends Controller
     public function create()
     {
         //
+
+
        return view('invoices.create');
 
 
@@ -49,7 +52,8 @@ class InvoicesController extends Controller
         //dd($request->all());
         $validatedData = $request->validate([
          
-            'clients_id' => 'required|exists:clients,id'
+            'clients_id' => 'required|exists:clients,id',
+            'product_id.*' => 'required|exists:challan_finisheds,finished_id',
             
             ]);
 
@@ -68,9 +72,19 @@ class InvoicesController extends Controller
 
         foreach ( $products_id as $key => $value) {
              # code...
+            $quantityChecker = AvailableStock::where([
+            ["availableref_id", "=",  $value->id]
+
+            ])->first();
+
+            if($request->quantity[$key] < $quantityChecker->totalOutlet){
+
+
+
 
           try
           {
+            //dd($request ->quantity[$key]);
              $array1 = array('price' => $request->price[$key],'quantity' => $request ->quantity[$key] );
              $invoices->rawlists()->attach($value, $array1);
 
@@ -98,7 +112,7 @@ class InvoicesController extends Controller
 
              
 
-             $available_stock_find->totalOutlet = (int)($available_stock_find->totalOutlet) - (int)($request ->quantity);
+             $available_stock_find->totalOutlet = (int)($available_stock_find->totalOutlet) - (int)($request ->quantity[$key]);
 
 
 
@@ -138,6 +152,15 @@ class InvoicesController extends Controller
                 //error_log($err);
             
         }
+    }
+       if($request->quantity[$key] > $quantityChecker->totalOutlet){
+        Session::flash('error_message', 'The quantity you entered is exceeded the  stock amount');
+        break;
+
+       }
+
+
+
     }
 
     

@@ -13,5 +13,9 @@ class Challan extends Model
 
      protected $dates = ['created_at'];
 
+    public function raw()
+    {
+        return $this->belongsTo('App\RawMaterial');
+    }
 
 }

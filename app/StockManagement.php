@@ -38,7 +38,11 @@ class StockManagement extends Model
                 //dd($raw);
      			
      			$stock->stock_out = $data['stock_out'];
+                if($stock->mode){
                 $stock->mode = $data['mode'];
+
+
+                }
 
      			$raw->stockmanangements()->save($stock);
      			
@@ -79,7 +83,12 @@ class StockManagement extends Model
      			$raw = FinishedGood::findorfail($data['ref_id']);
      			
      			$stock->stock_out = $data['stock_out'];
-                $stock->mode = $data['mode'];
+               if($stock->mode){
+                 $stock->mode = $data['mode'];
+
+
+                }
+
      			$raw->stockmanangements()->save($stock);
 
      			$available_stock_find = AvailableStock::firstOrNew(['availableref_id' => $data['ref_id']]);

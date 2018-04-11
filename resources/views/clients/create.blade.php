@@ -5,7 +5,7 @@
 
  <div class="box  box-primary">
     <div class="box-header">
-      <h3 class="box-title">Data Table With Full Features</h3>
+      <h3 class="box-title">Clients Form</h3>
     </div>
   <form method="post" role="form" action="{{ route('clients.store') }}" enctype="multipart/form-data" class="form-horizontal">
     {{ csrf_field() }}
@@ -29,7 +29,7 @@
 
 
     <div class="form-group">     
-        <label for="pwd" class="col-md-2 control-label">Last Number:</label>
+        <label for="pwd" class="col-md-2 control-label">Last Name:</label>
         <div class="col-md-8">
           <input name ='lastName' placeholder ='Last Number' class="form-control">
         </div>

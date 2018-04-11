@@ -5,7 +5,7 @@
 @section('content')
 <div class="box">
 	<div class="box-header">
-		<h3 class="box-title">Data Table With Full Features</h3>
+		<h3 class="box-title">Invoice</h3>
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">
@@ -15,7 +15,7 @@
 			<label class = "col-md-2 control-label">Client ID</label>
 				<div class="col-md-8">
 			
-			<input class="form-control" name='clients_id' placeholder ='clients_id'>
+			<input class="form-control" name='clients_id' placeholder ='Client ID'>
 			</div>
 			</div>
 
@@ -25,7 +25,7 @@
 				<div class="col-md-8 productRow">
 
 				
-					<input class='form-control' name ='product_id[]' placeholder ='product_id'>
+					<input class='form-control' name ='product_id[]' placeholder ='PRODUCT ID'>
 
 				</div>
 				<div class = "col-md-2">

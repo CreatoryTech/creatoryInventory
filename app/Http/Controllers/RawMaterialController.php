@@ -199,7 +199,7 @@ class RawMaterialController extends Controller
 
 
                
-
+      
 
 
 
@@ -216,6 +216,18 @@ class RawMaterialController extends Controller
 
 
 
+         $quantityChecker = AvailableStock::where([
+            ["availableref_id", "=",  $request->raw_id]
+
+            ])->first();
+
+         $total = $quantityChecker->total;
+
+         if($request->quantity < $total){
+
+
+      
+
 
         $data = array('reference_type' => 'raw' ,'ref_id' => $request->raw_id, 'stock_out' =>$request->quantity);
 
@@ -228,7 +240,19 @@ class RawMaterialController extends Controller
 
 
 
-         return view('raw.challan');
+        
+
+     }
+
+      if($request->quantity > $total){
+        Session::flash('error_message', 'The quantity you entered is exceeded the  stock amount');
+        break;
+      }
+      return redirect()->back();
+ 
+
+
+
     }
 
 

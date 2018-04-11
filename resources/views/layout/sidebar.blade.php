@@ -41,9 +41,11 @@
           </a>
           <ul class="treeview-menu">
             <li> <a href="{{ route('factory.raw.index') }}">Raw Material Entry</a></li>
+             <li> <a href="{{ route('factory.finished.index') }}">Finished Goods Entry</a></li>
             <li> <a href="{{ route('raw_material','pdf') }}">Raw PDF</a></li>
             <li> <a href="{{ route('factory.raw.challanList') }}">Challan List</a></li>
             <li> <a href="{{ route('raw_material','report') }}">Raw Report</a></li>
+              <li> <a href="{{ route('factory.stock.index') }}"><i class="fa fa-link"></i><span>Stock in/out Entry</a></span></li>
           </ul>
         </li>
         <li class="treeview">
@@ -56,6 +58,7 @@
             <li> <a href="{{ route('clients.create') }}">New</a></li>
             <li> <a href="{{ route('clients.index') }}">Existing</a></li>
             <li> <a href="{{ route('clientsIndex') }}">Clients Report</a></li>
+            <li><a href="{{ route('factory.supplier.create') }}"><i class="fa fa-link"></i> <span>Supplier Information</span></a></li>
           </ul>
         </li>
         <li class="treeview">

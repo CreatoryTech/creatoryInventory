@@ -12,7 +12,7 @@
    
  
         <form method="post" role= "form" action="{{ route('store2') }}" enctype="multipart/form-data" class="form-horizontal">
-         <div class="box-body">
+         <div class="box-body rawsection">
           {{ csrf_field() }}
           <div class="form-group">
             
@@ -73,13 +73,13 @@
       <label for="pwd" class="control-label"> Raw Material </label>
 
     </div>
-    <div class='rawsection col-md-8'>
+    <div class=' col-md-8'>
    
 
         <select name='finished_id[]' class='raw_select form-control'>
           @foreach ($rawlists as $raw)
-          <option value='{{$raw->id}}'>
-            {{$raw->name}}
+          <option value='{{$raw->raw->id}}'>
+            {{$raw->raw->name}}
           </option>
           @endforeach
 
@@ -88,7 +88,9 @@
 
     </div>
     </div>
-    <a class='addrow btn btn-primary pull-left'>Add</a>
+
+  </div>
+      <a class='addrow btn btn-primary pull-left'>Add</a>
     <a class='deleterow btn btn-primary pull-left'>Delete</a>
 
 
@@ -100,8 +102,8 @@
   <div class= "row">
     <button type="submit" class="btn btn-success">Submit</button>
   </div>
-  </div>
 </form>
+
 </div>
 </div>
 
@@ -190,7 +192,7 @@
     var html = $('.raw_select').html();
     $(".addrow").click(function(){
       //alert('hi');
-      $(".rawsection").append(" <div class='form-group'><select name=finished_id[] class=form-control>"+html+"</select></div>");
+      $(".rawsection").append(" <div class='form-group'><div class='col-md-2'></div><div class='col-md-8'><select name=finished_id[] class=form-control>"+html+"</select></div></div>");
       i=i+1;
     });
     $(".deleterow").click(function(){

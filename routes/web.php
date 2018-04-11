@@ -13,9 +13,7 @@
 
 
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::get('/', 'OutletController@index')->name('index');
 
 // Route::get('/abc', function () {
 //     return view('sagufa');

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\FinishedGood;
 use App\RawMaterial;
 use App\ChallanFinished;
+use App\Challan;
 use App\AvailableStock;
 use App\StockManagement;
+use Session;
+
 
 
 use Illuminate\Http\Request;
@@ -22,7 +25,15 @@ class FinishedGoodController extends Controller
     {
         //
           $finishedgood = FinishedGood::all();
-          $rawlists = RawMaterial::all();
+          $rawlists = Challan::distinct("raw_id")->get(['raw_id']);
+
+          //dd($rawlists);
+
+          // foreach ($rawlists as $key => $value) {
+          //     # code...
+          //      dd($value->raw->name);
+          // }
+       
 
 
           return view('finished.index',[
@@ -194,7 +205,9 @@ class FinishedGoodController extends Controller
 
         $request->validate([
           /*  'id' => 'required|unique:challan|max:255',*/
-            'finished_id' => 'required|exists:finished_goods,id',
+          'finished_id' => 'required|exists:finished_goods,id',
+
+           
             'weight' => 'nullable',
             'quantity' => 'required',
             
@@ -202,9 +215,19 @@ class FinishedGoodController extends Controller
 
 
 
+             # code...
+            $quantityChecker = AvailableStock::where([
+            ["availableref_id", "=", $request->finished_id]
+
+            ])->first();
+
+            if($request->quantity < $quantityChecker->total || $request->quantity == $quantityChecker->total){
 
 
 
+         //  $array = ["id" => $request->finished_id, "name" => $request->name];
+
+         // $goods = FinishedGood::create($array);
 
         $data = array('reference_type' => 'finished' ,'ref_id' => $request->finished_id, 'stock_out' =>$request->quantity, 'mode' => "1");
 
@@ -229,7 +252,7 @@ class FinishedGoodController extends Controller
 
                 /* For Outlet Purpose S */
 
-                
+                 error_log("outlet?");
 
              $available_stock_find->totalOutlet = ($available_stock_find->totalOutlet + $request ->quantity);
 
@@ -243,9 +266,19 @@ class FinishedGoodController extends Controller
                 $products_id->availablestock()->save($available_stock_find);
 
 
+         }
+
+    if($request->quantity > $quantityChecker->total){
+        error_log("nope");
+         Session::flash('error_message', 'The quantity you entered exceeded the stock amount22');
+
+    }
 
 
-         return view('finished.challan');
+
+
+
+      return redirect()->back();
     }
 
 

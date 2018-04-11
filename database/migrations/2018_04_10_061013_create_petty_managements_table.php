@@ -15,10 +15,10 @@ class CreatePettyManagementsTable extends Migration
     {
         Schema::create('petty_managements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->unsignedInteger('petty_type_id');
             $table->unsignedInteger('amount');
-            $table->string('reason');
+            $table->string('reason')->nullable();
 
             $table->timestamps();
         });
